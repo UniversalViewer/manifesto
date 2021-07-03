@@ -72,6 +72,7 @@ importTest('pres3-collection', './tests/pres3-collection');
 importTest('pres3-collection2', './tests/pres3-collection2');
 importTest('pres3-collection3', './tests/pres3-collection3');
 importTest('pres3-collection4', './tests/pres3-collection4');
+importTest('pres3-multiple-annotation-pages', './tests/pres3-multiple-annotation-pages');
 importTest('pres3-pdf', './tests/pres3-pdf');
 importTest('pres3', './tests/pres3');
 importTest('presentation2-paging', './tests/presentation2-paging');

@@ -140,8 +140,23 @@ export class Canvas extends Resource {
     return maxDimensions;
   }
 
-  // Presentation API 3.0
-  getContent(): Annotation[] {
+  /**
+   * Return first annotation page of content.
+   */
+  getContent(): Annotation[];
+
+  /**
+   * Get content by index of annotation page
+   * @param index
+   */
+  getContent(index: number): Annotation[];
+
+  /**
+   * Get canvas content by Identifier on Annotation Page
+   * @param pageId
+   */
+  getContent(pageId: string): Annotation[];
+  getContent(index: string | number = 0): Annotation[] {
     const content: Annotation[] = [];
 
     const items = this.__jsonld.items || this.__jsonld.content;
@@ -151,8 +166,13 @@ export class Canvas extends Resource {
     // should be contained in an AnnotationPage
     let annotationPage: AnnotationPage | null = null;
 
+    const page =
+      typeof index === "string"
+        ? this.getAnnotationPageIndexById(index, 0)
+        : index;
+
     if (items.length) {
-      annotationPage = new AnnotationPage(items[0], this.options);
+      annotationPage = new AnnotationPage(items[page], this.options);
     }
 
     if (!annotationPage) {
@@ -168,6 +188,35 @@ export class Canvas extends Resource {
     }
 
     return content;
+  }
+
+  /**
+   * Returns the index of the annotation page given an ID.
+   *
+   * @param pageId
+   */
+  getAnnotationPageIndexById(pageId: string): number | undefined;
+  getAnnotationPageIndexById(pageId: string, defaultIndex: number): number;
+  getAnnotationPageIndexById(
+    pageId: string,
+    defaultIndex?: number
+  ): number | undefined {
+    const items = this.__jsonld.items || this.__jsonld.content;
+    if (!items || items.length === 0) {
+      return defaultIndex;
+    }
+
+    for (let index = 0; index < items.length; index++) {
+      if (items[index].id && items[index].id === pageId) {
+        return index;
+      }
+    }
+
+    return defaultIndex;
+  }
+
+  getAnnotationTotalPages(): number {
+    return (this.__jsonld.items || this.__jsonld.content || []).length;
   }
 
   getDuration(): number | null {
