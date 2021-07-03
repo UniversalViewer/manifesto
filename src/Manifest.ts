@@ -175,14 +175,15 @@ export class Manifest extends IIIFResource {
           this._parseRanges(item, path + "/" + i, range);
         } else if (
           (item["@type"] && item["@type"].toLowerCase() === "sc:canvas") ||
-          (item["type"] && item["type"].toLowerCase() === "canvas")
+          (item["type"] && item["type"].toLowerCase() === "canvas") ||
+          (item["type"] && item["type"].toLowerCase() === "specificresource")
         ) {
           // store the ids on the __jsonld object to be used by Range.getCanvasIds()
           if (!range.canvases) {
             range.canvases = [];
           }
-
-          const id: string = item.id || item["@id"];
+          
+          const id: string = item.id || item["@id"] || item["source"];
 
           range.canvases.push(id);
         }

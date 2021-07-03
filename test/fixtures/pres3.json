@@ -142,6 +142,67 @@
                     ]
                 }
             ]
+        },
+        {
+            "id": "http://example.org/iiif/book1/canvas/1",
+            "type": "Canvas",
+            "label": {
+                "@none": [
+                    "p. 1"
+                ]
+            },
+            "height": 1000,
+            "width": 750,
+            "duration": 180.0,
+            "items": [
+                {
+                    "id": "http://example.org/iiif/book1/canvas/1/annotationpage/0",
+                    "type": "AnnotationPage",
+                    "items": [
+                        {
+                            "id": "http://example.org/iiif/book1/canvas/1/annotation/0",
+                            "type": "Annotation",
+                            "motivation": "painting",
+                            "body": {
+                                "id": "http://example.org/iiif/book1/canvas/1/images/page1.jpg",
+                                "type": "Image",
+                                "format": "image/jpeg",
+                                "label": {
+                                    "@none": [
+                                        "Page 1"
+                                    ]
+                                }
+                            },
+                            "target": "http://example.org/iiif/book1/canvas/1"
+                        }
+                    ]
+                }
+            ]
         }
+    ],
+    "structures": [
+      {
+        "id": "http://foo.test/1/range/root",
+        "type": "Range",
+        "behavior": "sequence",
+        "items": [
+            {
+              "type": "SpecificResource",
+              "source": "http://example.org/iiif/book1/canvas/0",
+              "selector": {
+                "type": "FragmentSelector",
+                "value": "xywh=0,0,750,300"
+              }
+            },
+            {
+                "type": "SpecificResource",
+                "source": "http://example.org/iiif/book1/canvas/1",
+                "selector": {
+                  "type": "FragmentSelector",
+                  "value": "xywh=0,0,750,300"
+                }
+            }
+        ]
+      }
     ]
 }

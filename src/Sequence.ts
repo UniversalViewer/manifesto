@@ -23,7 +23,6 @@ export class Sequence extends ManifestResource {
     }
 
     let items = this.__jsonld.canvases || this.__jsonld.elements;
-
     if (items) {
       for (let i = 0; i < items.length; i++) {
         const c = items[i];

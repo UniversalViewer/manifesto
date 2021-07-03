@@ -1,4 +1,5 @@
 import {
+  Canvas,
   Duration,
   IManifestoOptions,
   ManifestResource,
@@ -13,6 +14,7 @@ import {
 } from "@iiif/vocabulary/dist-commonjs";
 
 export class Range extends ManifestResource {
+  private _canvases: Canvas[] | null = null;
   private _ranges: Range[] | null = null;
   public canvases: string[] | null = null;
   public items: ManifestResource[] = [];
@@ -20,7 +22,7 @@ export class Range extends ManifestResource {
   public path: string;
   public treeNode: TreeNode;
 
-  constructor(jsonld?: any, options?: IManifestoOptions) {
+  constructor(jsonld ? : any, options ? : IManifestoOptions) {
     super(jsonld, options);
   }
 
@@ -33,6 +35,172 @@ export class Range extends ManifestResource {
 
     return [];
   }
+
+  getTopRange(range) {
+    let parentRange = range.parentRange;
+    if (parentRange) {
+      this.getTopRange(parentRange);
+    }
+    return parentRange;
+  }
+
+  getTotalCanvases(): number {
+    return this.getCanvases().length;
+  }
+
+  getCanvases(): Canvas[] {
+    if (this._canvases) {
+      return this._canvases;
+    }
+
+    let manifestSequence = this.getTopRange(
+      this
+    ).options.resource.getSequences()[0];
+    let manifestCanvases =
+      manifestSequence.__jsonld.canvases || manifestSequence.__jsonld.elements;
+
+    const canvasLength = this.canvases ? this.canvases.length : 0;
+    let canvasItems: (Canvas | null)[] = new Array(canvasLength).fill(null);
+
+    const rangeItems = this.__jsonld.items;
+
+    if (manifestCanvases && this.canvases) {
+      for (let i = 0; i < manifestCanvases.length; i++) {
+        let c = manifestCanvases[i];
+
+        const fragmentCanvas = rangeItems.filter(item => {
+          return item.source === c.id;
+        });
+
+        if (c.id in this.canvases) {
+          if (fragmentCanvas) {
+            const fragment = fragmentCanvas[0].selector.value;
+            const fragmentCanvasId = `${c.id}#${fragment}`;
+            c = this._updateFragmentIds(c, fragmentCanvasId);
+          }
+
+          const canvas: Canvas = new Canvas(c, this.options);
+          canvas.index = this.canvases.indexOf(c.id);
+          canvasItems.splice(canvas.index, 1, canvas);
+        }
+      }
+    } else if (manifestSequence.__jsonld && this.canvases) {
+      for (let i = 0; i < manifestSequence.__jsonld.length; i++) {
+        let c = manifestSequence.__jsonld[i];
+
+        const fragmentCanvas = rangeItems.filter(item => {
+          return item.source === c.id;
+        });
+
+        if (this.canvases.includes(c.id)) {
+          const cIndex = this.canvases.indexOf(c.id);
+          if (fragmentCanvas) {
+            const fragment = fragmentCanvas[0].selector.value;
+            const fragmentCanvasId = `${c.id}#${fragment}`;
+            c = this._updateFragmentIds(c, fragmentCanvasId);
+          }
+
+          const canvas: Canvas = new Canvas(c, this.options);
+          canvas.index = cIndex;
+
+          canvasItems.splice(canvas.index, 1, canvas);
+        }
+      }
+    }
+
+    this._canvases =
+      canvasItems.length > 0 ?
+      !canvasItems.includes(null) ?
+      < Canvas[] > canvasItems :
+      null :
+      null;
+
+    return this._canvases !== null ? this._canvases : [];
+  }
+
+  // update __jsonld canvas id's because that is used by other functions in
+  // the library when working with canvases
+  _updateFragmentIds(canvasJson: any, newCanvasId: string): any {
+    // update ids in annotations
+    const items = canvasJson.items || canvasJson.content;
+    const annotations = items.length && items[0].items ? items[0].items : [];
+
+    if (annotations && canvasJson.items) {
+      for (let i = 0; i < annotations.length; i++) {
+        canvasJson["id"] = newCanvasId;
+        // update target canvas Id in all canvas annotations
+        canvasJson.items[0].items[i]["target"] = newCanvasId;
+      }
+    } else if (annotations) {
+      for (let i = 0; i < annotations.length; i++) {
+        canvasJson["id"] = newCanvasId;
+        // update target canvas Id in all canvas annotations
+        // replace this with (something that looks at other contents)
+        canvasJson.content[0].items[i]["target"] = newCanvasId;
+      }
+    }
+
+    return canvasJson;
+  }
+
+  getCanvasByIndex(canvasIndex: number): any {
+    return this.getCanvases()[canvasIndex];
+  }
+
+  getCanvasById(id: string): Canvas | null {
+    for (let i = 0; i < this.getTotalCanvases(); i++) {
+      const canvas = this.getCanvasByIndex(i);
+
+      const canvasId: string = Utils.normaliseUrl(canvas.id);
+
+      if (Utils.normaliseUrl(id) === canvasId) {
+        return canvas;
+      }
+    }
+    return null;
+  }
+
+  // Alternative solution can be this
+  /*   getTopLevelCanvases(): Canvas[] {
+    if(this._canvases){
+      return this._canvases;
+    }
+
+    if (this.items.length) {
+      let canvasItems: Canvas[] = [];
+      for (let i = 0; i < this.items.length; i++) {
+        if (this.items[i].isCanvas()) {
+          canvasItems.push(<Canvas>this.items[i]);
+        }
+      }
+      return this._canvases = canvasItems;
+    }
+
+    let items = this.__jsonld.items || this.__jsonld.elements;
+
+    if (items) {
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type.includes("Canvas")) {
+          const c = items[i];
+          const canvas: Canvas = new Canvas(c, this.options);
+          canvas.index = i;
+          this.items.push(canvas);
+        }
+      }
+    } else if (this.__jsonld) {
+      for (let i = 0; i < this.__jsonld.length; i++) {
+        if (items[i].type.includes("Canvas")) {
+          const c = this.__jsonld[i];
+          const canvas: Canvas = new Canvas(c, this.options);
+          canvas.index = i;
+          this.items.push(canvas);
+        }
+      }
+    }
+
+    return this._canvases = <Canvas[]>this.items;
+  }
+ */
 
   getDuration(): Duration | undefined {
     // For this implementation, we want to catch SOME of the temporal cases - i.e. when there is a t=1,100
@@ -145,7 +313,7 @@ export class Range extends ManifestResource {
       return this._ranges;
     }
 
-    return (this._ranges = <Range[]>this.items.filter(m => m.isRange()));
+    return (this._ranges = < Range[] > this.items.filter(m => m.isRange()));
   }
 
   getBehavior(): Behavior | null {
@@ -203,7 +371,7 @@ export class Range extends ManifestResource {
   }
 
   private _parseTreeNode(node: TreeNode, range: Range): void {
-    node.label = <string>range.getLabel().getValue(this.options.locale);
+    node.label = < string > range.getLabel().getValue(this.options.locale);
     node.data = range;
     node.data.type = Utils.normaliseType(TreeNodeType.RANGE);
     range.treeNode = node;
