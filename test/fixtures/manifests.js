@@ -56,7 +56,8 @@ module.exports = {
     "witnesstopeter": "http://localhost:3001/witnesstopeter.json",
     "wunder": "http://localhost:3001/wunder.json",
     "deephierarchytop": "http://localhost:3001/deephierarchytop.json",
-    "sctagracilis": "http://localhost:3001/sctagracilis.json"
+    "sctagracilis": "http://localhost:3001/sctagracilis.json",
+    "bl-new-auth": "http://localhost:3001/bl-new-auth.json"
     //"query-bodleian": "http://iiif.bodleian.ox.ac.uk/iiif/manifest/f22e9dae-c070-48eb-be0b-aa6c5bc195a6.json",
     //"query-gams": "http://gams.uni-graz.at/cocoon/mets2json?source=http%3A%2F%2Fgams.uni-graz.at%2Farchive%2Fget%2Fo%3Asrbas.1535%2FMETS_SOURCE"
 };

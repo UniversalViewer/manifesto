@@ -276,6 +276,7 @@ export class Sequence extends ManifestResource {
   getViewingDirection(): ViewingDirection | null {
     if (this.getProperty("viewingDirection")) {
       return this.getProperty("viewingDirection");
+      // @ts-ignore
     } else if ((<Manifest>this.options.resource).getViewingDirection) {
       return (<Manifest>this.options.resource).getViewingDirection();
     }

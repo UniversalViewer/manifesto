@@ -1040,9 +1040,20 @@ export class Utils {
     parentResource: JSONLDResource,
     id: string
   ): JSONLDResource {
-    return <JSONLDResource>(
-      Utils.traverseAndFind(parentResource.__jsonld, "@id", id)
+    const presentation2Resource = Utils.traverseAndFind(
+      parentResource.__jsonld,
+      "@id",
+      id
     );
+    if (presentation2Resource) {
+      return presentation2Resource as JSONLDResource;
+    }
+
+    return Utils.traverseAndFind(
+      parentResource.__jsonld,
+      "id",
+      id
+    ) as JSONLDResource;
   }
 
   /**
@@ -1073,6 +1084,7 @@ export class Utils {
   }
 
   static getServices(resource: any): Service[] {
+
     let service: any;
 
     // if passing a manifesto-parsed object, use the __jsonld.service property,
@@ -1084,26 +1096,41 @@ export class Utils {
     }
 
     const services: Service[] = [];
-    if (!service) return services;
 
     // coerce to array
     if (!Array.isArray(service)) {
       service = [service];
     }
 
+    if (resource.__jsonld && resource.__jsonld.services) {
+      service.push(...resource.__jsonld.services);
+    }
+
+    if (service.length === 0) {
+      return services;
+    }
+
     for (let i = 0; i < service.length; i++) {
       const s: any = service[i];
 
-      if (typeof s === "string") {
+      if (!s) {
+        continue;
+      }
+
+      const id = typeof s === "string" ? s : s.id || s["@id"];
+
+      if (id) {
         const r: JSONLDResource = this.getResourceById(
           resource.options.resource,
-          s
+          id
         );
 
         if (r) {
           services.push(new Service(r.__jsonld || r, resource.options));
+          continue;
         }
-      } else {
+      }
+      if (typeof s !== "string") {
         services.push(new Service(s, resource.options));
       }
     }

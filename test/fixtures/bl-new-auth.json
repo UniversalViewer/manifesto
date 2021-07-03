@@ -1,0 +1,366 @@
+{
+  "@context": [
+    "http://iiif.io/api/auth/1/context.json",
+    "http://iiif.io/api/presentation/3/context.json"
+  ],
+  "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100063181190.0x000002/manifest.json",
+  "type": "Manifest",
+  "label": {
+    "en": [
+      "George Evans / Basil Bunting"
+    ]
+  },
+  "metadata": [
+    {
+      "label": {
+        "en": [
+          "Full title"
+        ]
+      },
+      "value": {
+        "en": [
+          "George Evans / Basil Bunting"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "Collection"
+        ]
+      },
+      "value": {
+        "en": [
+          "Robert Hampson tapes"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "Format"
+        ]
+      },
+      "value": {
+        "en": [
+          "1 compact cassette"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "Usage"
+        ]
+      },
+      "value": {
+        "en": [
+          "<span>Rights unassigned  staff access only</span>"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "Held by"
+        ]
+      },
+      "value": {
+        "en": [
+          "The British Library"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "Digitised by"
+        ]
+      },
+      "value": {
+        "en": [
+          "The British Library 2018"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "Digitisation funded by"
+        ]
+      },
+      "value": {
+        "en": [
+          "<span>National Lottery Heritage Fund<br><br><img src='https://www.heritagefund.org.uk/sites/default/files/media/attachments/TNLHLF_Colour_Logo_English_RGB_0_0.jpg'/></span>"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "Identifier"
+        ]
+      },
+      "value": {
+        "en": [
+          "C1700/01"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "Shelfmark"
+        ]
+      },
+      "value": {
+        "en": [
+          "C1700/01"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "Link to catalogue"
+        ]
+      },
+      "value": {
+        "en": [
+          "<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8107626'>View the catalogue record</a>"
+        ]
+      }
+    }
+  ],
+  "requiredStatement": {
+    "label": {
+      "en": [
+        "Copyright and Usage"
+      ]
+    },
+    "value": {
+      "en": [
+        "<span><a href=\"http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8107626\">Please read the full information about this object</a><br>Rights unassigned - staff access only</span>"
+      ]
+    }
+  },
+  "provider": [
+    {
+      "id": "https://www.bl.uk/about-us",
+      "type": "Agent",
+      "label": {
+        "en": [
+          "The British Library"
+        ]
+      },
+      "homepage": [
+        {
+          "id": "https://www.bl.uk/",
+          "type": "Text",
+          "format": "text/html",
+          "label": {
+            "en": [
+              "The British Library"
+            ]
+          }
+        }
+      ],
+      "logo": [
+        {
+          "id": "https://www.bl.uk/images/bl_logo_100.gif",
+          "type": "Image",
+          "format": "image/gif"
+        }
+      ]
+    }
+  ],
+  "services": [
+    {
+      "id": "https://api.bl.uk/auth/iiif/login",
+      "type": "AuthCookieService1",
+      "profile": "http://iiif.io/api/auth/1/login",
+      "description": {
+        "en": [
+          "Some portions of this recording may be unavailable due to rights restrictions."
+        ]
+      },
+      "header": {
+        "en": [
+          "Please Log-In"
+        ]
+      },
+      "label": {
+        "en": [
+          "Login to The British Library"
+        ]
+      },
+      "service": [
+        {
+          "id": "https://api.bl.uk/auth/iiif/token",
+          "type": "AuthTokenService1",
+          "profile": "http://iiif.io/api/auth/1/token"
+        }
+      ]
+    },
+    {
+      "id": "http://access.bl.uk/item/share/ark:/81055/vdc_100063181190.0x000002",
+      "type": "Service",
+      "profile": "http://universalviewer.io/share-extensions-profile"
+    }
+  ],
+  "homepage": [
+    {
+      "id": "http://access.bl.uk/item/viewer/ark:/81055/vdc_100063181190.0x000002",
+      "type": "Text",
+      "format": "text/html",
+      "label": {
+        "en": [
+          "View at the British Library"
+        ]
+      }
+    }
+  ],
+  "behavior": [
+    "auto-advance"
+  ],
+  "items": [
+    {
+      "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100063181190.0x000004",
+      "type": "Canvas",
+      "label": {
+        "en": [
+          "Tape 1 Side 1"
+        ]
+      },
+      "duration": 2808.8800000000001,
+      "items": [
+        {
+          "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100063181190.0x000004/anno1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100063181190.0x000004/anno1/1",
+              "type": "Annotation",
+              "motivation": "painting",
+              "target": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100063181190.0x000004#t=00.00,2808.88",
+              "body": {
+                "type": "Choice",
+                "items": [
+                  {
+                    "id": "https://api.bl.uk/media/iiif/ark:/81055/vdc_100063181190.0x00000d/manifest.mpd",
+                    "format": "application/dash+xml",
+                    "type": "Sound",
+                    "service": [
+                      {
+                        "id": "https://api.bl.uk/auth/iiif/login",
+                        "type": "AuthCookieService1"
+                      },
+                      {
+                        "id": "https://api.bl.uk/media/dash/ark:/81055/vdc_100063181190.0x00000d/probe.json",
+                        "type": "AuthProbeService1",
+                        "profile": "http://iiif.io/api/auth/1/probe"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "https://api.bl.uk/media/iiif/ark:/81055/vdc_100063181190.0x00000d/index.m3u8",
+                    "format": "application/vnd.apple.mpegURL",
+                    "type": "Sound",
+                    "service": [
+                      {
+                        "id": "https://api.bl.uk/auth/iiif/login",
+                        "type": "AuthCookieService1"
+                      },
+                      {
+                        "id": "https://api.bl.uk/media/hls/ark:/81055/vdc_100063181190.0x00000d/probe.json",
+                        "type": "AuthProbeService1",
+                        "profile": "http://iiif.io/api/auth/1/probe"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "seeAlso": [
+                {
+                  "id": "https://iiif-waveforms.s3.amazonaws.com/vdc_100063181190.0x00000c.dat",
+                  "type": "Dataset",
+                  "format": "application/octet-stream",
+                  "profile": "http://waveform.prototyping.bbc.co.uk"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100063181190.0x000005",
+      "type": "Canvas",
+      "label": {
+        "en": [
+          "Tape 1 Side 2"
+        ]
+      },
+      "duration": 1090.28,
+      "items": [
+        {
+          "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100063181190.0x000005/anno2",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100063181190.0x000005/anno2/1",
+              "type": "Annotation",
+              "motivation": "painting",
+              "target": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100063181190.0x000005#t=00.00,1090.28",
+              "body": {
+                "type": "Choice",
+                "items": [
+                  {
+                    "id": "https://api.bl.uk/media/iiif/ark:/81055/vdc_100063181190.0x00000f/manifest.mpd",
+                    "format": "application/dash+xml",
+                    "type": "Sound",
+                    "service": [
+                      {
+                        "id": "https://api.bl.uk/auth/iiif/login",
+                        "type": "AuthCookieService1"
+                      },
+                      {
+                        "id": "https://api.bl.uk/media/dash/ark:/81055/vdc_100063181190.0x00000f/probe.json",
+                        "type": "AuthProbeService1",
+                        "profile": "http://iiif.io/api/auth/1/probe"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "https://api.bl.uk/media/iiif/ark:/81055/vdc_100063181190.0x00000f/index.m3u8",
+                    "format": "application/vnd.apple.mpegURL",
+                    "type": "Sound",
+                    "service": [
+                      {
+                        "id": "https://api.bl.uk/auth/iiif/login",
+                        "type": "AuthCookieService1"
+                      },
+                      {
+                        "id": "https://api.bl.uk/media/hls/ark:/81055/vdc_100063181190.0x00000f/probe.json",
+                        "type": "AuthProbeService1",
+                        "profile": "http://iiif.io/api/auth/1/probe"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "seeAlso": [
+                {
+                  "id": "https://iiif-waveforms.s3.amazonaws.com/vdc_100063181190.0x00000e.dat",
+                  "type": "Dataset",
+                  "format": "application/octet-stream",
+                  "profile": "http://waveform.prototyping.bbc.co.uk"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
