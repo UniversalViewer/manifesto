@@ -20,7 +20,7 @@ import {
 export class Manifest extends IIIFResource {
   public index: number = 0;
   private _allRanges: Range[] | null = null;
-  public items: Sequence[] = [];
+  public items: (Sequence | Range)[] = [];
   private _topRanges: Range[] = [];
 
   constructor(jsonld?: any, options?: IManifestoOptions) {
@@ -249,8 +249,15 @@ export class Manifest extends IIIFResource {
     return null;
   }
 
-  getSequences(): Sequence[] {
-    if (this.items.length) {
+  getSequences(): (Sequence | Range)[] {
+    let v3SeqRanges: Range[] = [];
+    if (this.getTopRanges().length > 0) {
+      v3SeqRanges = this.getTopRanges().filter(
+        r => r.getBehavior() == "sequence"
+      );
+    }
+
+    if (v3SeqRanges.length === 0 && this.items.length) {
       return this.items;
     }
 
@@ -269,10 +276,14 @@ export class Manifest extends IIIFResource {
       this.items.push(sequence);
     }
 
+    if (v3SeqRanges.length > 0) {
+      this.items.concat(v3SeqRanges);
+    }
+
     return this.items;
   }
 
-  getSequenceByIndex(sequenceIndex: number): Sequence {
+  getSequenceByIndex(sequenceIndex: number): Sequence | Range {
     return this.getSequences()[sequenceIndex];
   }
 
